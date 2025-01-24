@@ -183,7 +183,7 @@ VALUES
 -- The SQL statement for the movies output
 -- TODO!
 
-SELECT * FROM movies;
+SELECT title, year, rating, studio FROM movies;
 
 -- Prints a header for the cast output
 .print ""
@@ -197,3 +197,25 @@ SELECT * FROM movies;
 SELECT movies.title, characters.actor_name, characters.char_name FROM characters
 INNER JOIN movies ON characters.movies_id = movies.id
 ;
+
+
+.print ""
+.print "TESTING CODE PER USER STORIES"
+.print "========"
+.print ""
+
+
+
+-- - As a guest, I want to see a list of movies with the title, year released,
+--   MPAA rating, and studio information.
+SELECT title, year, rating, studio FROM movies;
+-- - As a guest, I want to see the movies which a single studio has produced.
+-- - As a guest, I want to see each movie's cast including each actor's
+--   name and the name of the character they portray.
+-- - As a guest, I want to see the movies which a single actor has acted in.
+SELECT movies.title, characters.actor_name FROM characters
+INNER JOIN movies ON characters.movies_id = movies.id
+WHERE characters.actor_name ="Christian Bale"
+;
+-- * Note: The "guest" user role represents the experience prior to logging-in
+--   to an app and typically does not have a corresponding database table.
