@@ -141,10 +141,24 @@ first_name TEXT,
 last_name TEXT
 );
 
-
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
+INSERT INTO movies (
+title,
+year,
+rating,
+studio
+)
+VALUES(
+"Batman Begins",
+2005,
+"PG-13",
+"Warner Bros"
+)
+
+;
+
 
 -- Prints a header for the movies output
 .print "Movies"
