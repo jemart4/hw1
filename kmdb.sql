@@ -115,6 +115,8 @@
 
 DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS characters;
+DROP TABLE IF EXISTS actors;
+DROP TABLE IF EXISTS studios;
 --DROP TABLE IF EXISTS actors;
 
 -- Create new tables, according to your domain model
@@ -132,8 +134,13 @@ CREATE TABLE characters(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 
 movies_id INTEGER,
-actor_name TEXT,
+actors_id INTEGER,
 char_name TEXT
+);
+
+CREATE TABLE actors(
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+actor_name TEXT
 );
 
 --CREATE TABLE actors(
@@ -154,25 +161,42 @@ VALUES
 ("The Dark Knight Rises", 2012, "PG-13", "Warner Bros.")
 ;
 
-INSERT INTO characters
-(movies_id,actor_name,char_name)
+INSERT INTO actors
+(actor_name)
 
 VALUES
-(1, "Christian Bale","Bruce Wayne"),
-(1, "Michael Caine","Alfred"),
-(1, "Liam Neeson", "Ra's Al Ghul"),
-(1, "Katie Holmes", "Rachel Dawes"),
-(1, "Gary Oldman", "Commissioner Gordon"),
-(2, "Christian Bale", "Bruce Wayne"),
-(2, "Heath Ledger", "Joker"),
-(2, "Aaron Eckhart", "Harvey Dent"),
-(2, "Michael Caine", "Alfred"),
-(2, "Maggie Gyllenhaal", "Rachel Dawes"),
-(3, "Christian Bale", "Bruce Wayne"),
-(3, "Gary Oldman", "Commissioner Gordon"),
-(3, "Tom Hardy", "Bane"),
-(3, "Joseph Gordon-Levitt", "John Blake"),
-(3, "Anne Hathaway", "Selina Kyle")
+("Christian Bale"),
+("Michael Caine"),
+("Liam Neeson"),
+("Katie Holmes"),
+("Gary Oldman"),
+("Heath Ledger"),
+("Aaron Eckhart"),
+("Maggie Gyllenhaal"),
+("Tom Hardy"),
+("Joseph Gordon-Levitt"),
+("Anne Hathaway")
+;
+
+INSERT INTO characters
+(movies_id,actors_id,char_name)
+
+VALUES
+(1, 1,"Bruce Wayne"),
+(1, 2,"Alfred"),
+(1, 3, "Ra's Al Ghul"),
+(1, 4, "Rachel Dawes"),
+(1, 5, "Commissioner Gordon"),
+(2, 1, "Bruce Wayne"),
+(2, 6, "Joker"),
+(2, 7, "Harvey Dent"),
+(2, 2, "Alfred"),
+(2, 8, "Rachel Dawes"),
+(3, 1, "Bruce Wayne"),
+(3, 5, "Commissioner Gordon"),
+(3, 9, "Bane"),
+(3, 10, "John Blake"),
+(3, 11, "Selina Kyle")
 ;
 
 -- Prints a header for the movies output
@@ -194,28 +218,12 @@ SELECT title, year, rating, studio FROM movies;
 
 -- The SQL statement for the cast output
 -- TODO!
-SELECT movies.title, characters.actor_name, characters.char_name FROM characters
+--SELECT movies.title, actors.actor_name, characters.char_name FROM characters
+--INNER JOIN movies ON characters.movies_id = movies.id
+--INNER JOIN actors ON characters.actors_id = actors.id
+
+SELECT movies.title, actors.actor_name, characters.char_name FROM characters
 INNER JOIN movies ON characters.movies_id = movies.id
+INNER JOIN actors ON characters.actors_id = actors.id
 ;
 
-
-.print ""
-.print "TESTING CODE PER USER STORIES"
-.print "========"
-.print ""
-
-
-
--- - As a guest, I want to see a list of movies with the title, year released,
---   MPAA rating, and studio information.
-SELECT title, year, rating, studio FROM movies;
--- - As a guest, I want to see the movies which a single studio has produced.
--- - As a guest, I want to see each movie's cast including each actor's
---   name and the name of the character they portray.
--- - As a guest, I want to see the movies which a single actor has acted in.
-SELECT movies.title, characters.actor_name FROM characters
-INNER JOIN movies ON characters.movies_id = movies.id
-WHERE characters.actor_name ="Christian Bale"
-;
--- * Note: The "guest" user role represents the experience prior to logging-in
---   to an app and typically does not have a corresponding database table.
