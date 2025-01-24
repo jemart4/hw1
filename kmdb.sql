@@ -128,6 +128,20 @@ rating TEXT,
 studio TEXT
 );
 
+CREATE TABLE characters(
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+char_name TEXT,
+movies_id INTEGER,
+actor_id INTEGER
+);
+
+CREATE TABLE actors(
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+first_name TEXT,
+last_name TEXT
+);
+
+
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
