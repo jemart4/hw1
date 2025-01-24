@@ -121,13 +121,17 @@ DROP TABLE IF EXISTS studios;
 
 -- Create new tables, according to your domain model
 -- TODO!
+CREATE TABLE studios(
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+studio_name TEXT
+);
 
 CREATE TABLE movies(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 title TEXT,
 year INTEGER,
 rating TEXT,
-studio TEXT
+studios_id INTEGER
 );
 
 CREATE TABLE characters(
@@ -143,22 +147,25 @@ id INTEGER PRIMARY KEY AUTOINCREMENT,
 actor_name TEXT
 );
 
---CREATE TABLE actors(
---id INTEGER PRIMARY KEY AUTOINCREMENT,
---first_name TEXT,
---last_name TEXT
---);
+
+
 
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
-INSERT INTO movies 
-(title, year, rating, studio)
+INSERT INTO studios 
+(studio_name)
 
 VALUES
-("Batman Begins", 2005, "PG-13", "Warner Bros."),
-("The Dark Knight", 2008, "PG-13", "Warner Bros."),
-("The Dark Knight Rises", 2012, "PG-13", "Warner Bros.")
+("Warner Bros.");
+
+INSERT INTO movies 
+(title, year, rating, studios_id)
+
+VALUES
+("Batman Begins", 2005, "PG-13", 1),
+("The Dark Knight", 2008, "PG-13", 1),
+("The Dark Knight Rises", 2012, "PG-13", 1)
 ;
 
 INSERT INTO actors
@@ -207,7 +214,8 @@ VALUES
 -- The SQL statement for the movies output
 -- TODO!
 
-SELECT title, year, rating, studio FROM movies;
+SELECT title, year, rating, studios.studio_name FROM movies
+INNER JOIN studios ON movies.studios_id = studios.id ;
 
 -- Prints a header for the cast output
 .print ""
