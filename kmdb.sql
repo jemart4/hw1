@@ -234,4 +234,3 @@ SELECT movies.title, actors.actor_name, characters.char_name FROM characters
 INNER JOIN movies ON characters.movies_id = movies.id
 INNER JOIN actors ON characters.actors_id = actors.id
 ;
-
